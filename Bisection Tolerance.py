@@ -1,5 +1,5 @@
 def f(x):
-    return x**3 + 2*x**2 + 10*x - 20
+    return x**3 + 2*x**2 + 10*x - 19
     # return x**2 - 6*x + 8
 
 a = 1
