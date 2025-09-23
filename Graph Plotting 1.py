@@ -5,10 +5,12 @@ import matplotlib.pyplot as plt
 def f(x):
     # return np.exp(2*x) - 3
     # return x**3 + 200
-    return np.exp(-x) - x
+    # return np.exp(-x) - x
+    # return 8/x
+    return np.exp(-(x-2)**2) + np.exp(-(x+2)**2)
 
 # Buat data x dari -2 sampai 2 (100 titik)
-x = np.linspace(-2, 2, 100)
+x = np.linspace(-10, 10, 100)
 y = f(x)
 
 # Plot grafik
