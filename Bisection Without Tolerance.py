@@ -1,11 +1,13 @@
+import math
+
 def f(x):
-    # return x**2 - 5
-    return x**3 - 4*x + 1
+    # return math.exp(x) - math.log(x) - 1
+    return math.exp(-x) - math.log(x)
     # return 23*x**7 - 125*x**6 + 120*x**4 - 15*x**3 + 120*x**2 - 3
 
 # interval awal
-a = 0
-b = 1
+a = 1
+b = 2
 
 if f(a) * f(b) > 0:
         print("Tidak bisa dilanjutkan, silahkan ubah batasnya sehingga f(a)*f(b) < 0")
@@ -15,7 +17,7 @@ elif f(b) == 0:
      print("Akarnya adalah =", b)
 else:
     print("Iterasi |    a     |     b    |    m     | f(m)")
-    for i in range(1, 5):  # banyak iterasi
+    for i in range(1, 7):  # banyak iterasi
         c = (a + b) / 2
         print(f"{i:^7} | {a:^7.6f} | {b:^7.6f} | {c:^7.6f} | {f(c):^7.6f}")
         

@@ -22,9 +22,9 @@ def adjoint_matrix(A):
     adj = cofactors.T
     return adj
 
-A = [[3, 1, -4],
-     [2, 5, 6],
-     [1, 4, 8]]
+A = [[8, 5, 5],
+     [-1, -1, 0],
+     [2, 4, 0]]
 
 print("\nAdjoint dari A:")
 print(adjoint_matrix(A))
