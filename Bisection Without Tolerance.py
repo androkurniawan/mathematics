@@ -2,12 +2,12 @@ import math
 
 def f(x):
     # return math.exp(x) - math.log(x) - 1
-    return math.exp(-x) - math.log(x)
+    return x**2 - math.log(x) - 5
     # return 23*x**7 - 125*x**6 + 120*x**4 - 15*x**3 + 120*x**2 - 3
 
 # interval awal
 a = 1
-b = 2
+b = 3
 
 if f(a) * f(b) > 0:
         print("Tidak bisa dilanjutkan, silahkan ubah batasnya sehingga f(a)*f(b) < 0")
