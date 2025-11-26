@@ -1,13 +1,25 @@
-import math
+import pulp
 
-def f(x):
-    return math.exp(x) - 4*x - 1
+# 1. Definisi problem (minimization)
+model = pulp.LpProblem("Pure_Integer_Programming_Example", pulp.LpMaximize)
 
-def ff(x):
-    return math.exp(x) - 4
+# 2. Variabel keputusan
+x1 = pulp.LpVariable("x1", lowBound=0, cat="Continous")
+x2 = pulp.LpVariable("x2", lowBound=0, cat="Continous")
 
-x = 0
+# 3. Fungsi objektif
+model += 3*x1 + 5*x2
 
-print(f(x))
-print(ff(x))
-print("nilai x terbaru =", x - (f(x)/ff(x)))
+# 4. Kendala
+model += 2*x1 + 4*x2 <= 25
+model += x1 <= 8
+model += x2 <= 10
+
+# 5. Solve
+model.solve(pulp.PULP_CBC_CMD(msg=False))
+
+# 6. Hasil
+print("Status:", pulp.LpStatus[model.status])
+print("Nilai optimum Z =", pulp.value(model.objective))
+print("x1 =", x1.value())
+print("x2 =", x2.value())
