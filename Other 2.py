@@ -1,15 +1,11 @@
-import numpy as np
+import math
 
-A = np.array([[3, 1, 5],
-              [-1, -1, -1],
-              [-2, 2, 2]])
+x = 1.90625
 
-# B = np.array([[0, -0.5, -0.25],
-#               [-0.25, -1, 0.125],
-#               [0.25, 0.5, 0.125]])
-B = np.array([[3, -1, 5],
-              [1, -1, -1],
-              [5, -1, 2]])
+def f(x):
+    return x**2 - math.log(x) - 3
+def fa(x):
+    return math.exp(x) - 4
 
-C = np.dot(A, B)
-print(C)
+print(f(x))
+print(fa(x))

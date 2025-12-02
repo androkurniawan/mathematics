@@ -1,8 +1,8 @@
 import math
 
 def f(x):
-    # return math.exp(x) - math.log(x) - 1
-    return x**2 - math.log(x) - 5
+    # return math.exp(-x) - math.log(x)
+    return x**2 - math.log(x) - 3
     # return 23*x**7 - 125*x**6 + 120*x**4 - 15*x**3 + 120*x**2 - 3
 
 # interval awal
@@ -16,10 +16,10 @@ elif f(a) == 0:
 elif f(b) == 0:
      print("Akarnya adalah =", b)
 else:
-    print("Iterasi |    a     |     b    |    m     | f(m)")
+    print("Iterasi |    a     |     b    |    m     | f(m)        |  f(a)       |  f(b)")
     for i in range(1, 7):  # banyak iterasi
         c = (a + b) / 2
-        print(f"{i:^7} | {a:^7.6f} | {b:^7.6f} | {c:^7.6f} | {f(c):^7.6f}")
+        print(f"{i:^7} | {a:^7.6f} | {b:^7.6f} | {c:^7.6f} | {f(c):^7.6f}    |   {f(a):^7.6f}| {f(b):^7.6f}")
         
         # cek apakah c adalah akarnya, jika c adalah akarnya maka stop
         if f(c) == 0:

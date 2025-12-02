@@ -6,7 +6,7 @@ def f(x):
 def f_prime(x):
     return math.exp(x) - 4
 
-x0 = 3
+x0 = 16
 tol = 0.0001  
 max_iter = 5
 
