@@ -1,7 +1,7 @@
 import pulp
 
 # 1. Definisi problem (minimization)
-model = pulp.LpProblem("Fixed_Charge_Problem", pulp.LpMinimize)
+model = pulp.LpProblem("Fixed_Charge_Problem", pulp.LpMaximize)
 
 # 2. Variabel keputusan
 x1 = pulp.LpVariable("x1", lowBound=0, cat="Integer")
@@ -13,22 +13,16 @@ y2 = pulp.LpVariable("y2", cat="Binary")
 y3 = pulp.LpVariable("y3", cat="Binary")
 
 # 3. Fungsi objektif
-model += 200*x1 + 100*x2 + 500*x3 + 5000*y1 + 3000*y2 + 8000*y3
+model += 6*x1 + 4*x2 + 7*x3 - 200*y1 - 150*y2 - 100*y3
 
 # 4. Kendala
-model += x1 + x2 + x3 >= 100
-model += x1 >= 20
-model += x2 >= 30
-model += x3 >= 10
-model += x1 <= 50
-model += x2 <= 100
-model += x3 <= 30
-model += 4*x1 + 2*x2 + 8*x3 <= 500
+model += 3*x1 + 2*x2 + 6*x3 <= 150
+model += 4*x1 + 3*x2 + 4*x3 <= 160
 
 # Kendala fixed charge
-model += x1 <= 50*y1
-model += x2 <= 100*y2
-model += x3 <= 30*y3
+model += x1 <= 40*y1
+model += x2 <= 53*y2
+model += x3 <= 25*y3
 
 # 5. Solve
 model.solve(pulp.PULP_CBC_CMD(msg=False))

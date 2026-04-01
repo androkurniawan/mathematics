@@ -6,7 +6,8 @@ import mplcursors
 def f(x):
     # return x**3 + 200
     # return np.exp(2*x) - 3
-    return np.exp(-x) - 2*x
+    # return np.exp(-x) - 2*x
+    return 23*x**7 - 125*x**6 + 120*x**4 - 15*x**3 + 120*x**2 - 3
 
 
 # Buat data x dari -10 sampai 10 (100 titik)

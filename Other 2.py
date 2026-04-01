@@ -1,0 +1,24 @@
+import pulp
+
+# 1. Definisi problem
+model = pulp.LpProblem("Fixed_Charge_Problem", pulp.LpMaximize)
+
+# 2. Variabel keputusan
+x1 = pulp.LpVariable("x1", lowBound=1, cat="Integer")
+x2 = pulp.LpVariable("x2", lowBound=1, cat="Integer")
+
+# 3. Fungsi objektif
+model += 50000*x1 + 30000*x2
+
+# 4. Kendala
+model += 2*x1 + x2 <= 20
+model += 1.5*x1 + 0.5*x2 <= 12
+
+# 5. Solve
+model.solve(pulp.PULP_CBC_CMD(msg=False))
+
+# 6. Hasil
+print("Status:", pulp.LpStatus[model.status])
+print("Nilai optimum Z =", pulp.value(model.objective))
+print("x1 =", x1.value())
+print("x2 =", x2.value())

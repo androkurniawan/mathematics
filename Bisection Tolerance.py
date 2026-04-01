@@ -1,10 +1,10 @@
 def f(x):
-    return x**3 + 2*x**2 + 10*x - 19
-    # return x**2 - 6*x + 8
+    # return x**3 + 2*x**2 + 10*x - 19
+    return 5*x**3 - 5*x**2 + 6*x - 2
 
-a = 1
-b = 1.5
-tol = 0.000015  #toleransi
+a = 0
+b = 1
+tol = 0.1  #toleransi
 i = 1
 
 print("Iterasi | a       | b       | c       | f(c)")
