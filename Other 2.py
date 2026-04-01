@@ -1,18 +1,18 @@
 import pulp
 
-# 1. Definisi problem (minimization)
+# 1. Definisi problem
 model = pulp.LpProblem("Fixed_Charge_Problem", pulp.LpMaximize)
 
 # 2. Variabel keputusan
-x1 = pulp.LpVariable("x1", lowBound=0, cat="Integer")
-x2 = pulp.LpVariable("x2", lowBound=0, cat="Integer")
+x1 = pulp.LpVariable("x1", lowBound=1, cat="Integer")
+x2 = pulp.LpVariable("x2", lowBound=1, cat="Integer")
 
 # 3. Fungsi objektif
-model += 8*x1 + 5*x2
+model += 50000*x1 + 30000*x2
 
 # 4. Kendala
-model += x1 + x2 <= 6
-model += 9*x1 + 5*x2 <= 45
+model += 2*x1 + x2 <= 20
+model += 1.5*x1 + 0.5*x2 <= 12
 
 # 5. Solve
 model.solve(pulp.PULP_CBC_CMD(msg=False))

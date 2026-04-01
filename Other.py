@@ -1,57 +1,26 @@
-import PySimpleGUI as sg
+import numpy as np
 
-def create_layout():
-    layout = [
-        [sg.Text('Nama Produk:'), sg.Input(key='-PRODUK-')],
-        [sg.Text('Harga:'), sg.Input(key='-HARGA-')],
-        [sg.Text('Jumlah:'), sg.Input(key='-JUMLAH-')],
-        [sg.Button('Tambah'), sg.Button('Hitung Total'), sg.Button('Bersihkan')],
-        [sg.Text('Daftar Belanja:')],
-        [sg.Multiline(size=(45, 10), key='-DAFTAR-', disabled=True)],
-        [sg.Text('Total: Rp'), sg.Text('0', key='-TOTAL-')]
-    ]
-    return layout
+D = np.array([
+    [0,    26.8, 25.9, 27.6, 39.7, 20,   37.5, 54.9, 24.5, 22.8, 21.8, 23.3, 21.1, 22.8, 21.1, 37.8, 21.4, 27.9, 38.1],
+    [23.9, 0,    18.3, 3.5,  25.1, 21.7, 61.4, 78.8, 7.9,  8.2,  4.3,  8.7,  3.6,  4.3,  4.6,  61.7, 3.9,  3.8,  25.6],
+    [23.1, 18.4, 0,    19.2, 46.2, 10.4, 60.6, 78.1, 14.6, 12.7, 17.5, 12.4, 16.3, 14.5, 17.4, 60.9, 17.2, 19.5, 36.5],
+    [26.9, 3.5,  19.3, 0,    27.1, 22.6, 64.3, 81.8, 5.2,  7.3,  6.3,  7.8,  5.6,  6.3,  6.7,  64.6, 5.9,  1.1,  25.5],
+    [38.8, 27.9, 38,   29.6, 0,    41.4, 76.3, 93.8, 29.7, 28,   23.2, 28.5, 24.7, 24.5, 23,   76.6, 23.4, 33.1, 5.9 ],
+    [19.4, 21.8, 10.3, 22.6, 41.4, 0,    56.8, 74.3, 18,   16.1, 21,   15.9, 19.7, 17.9, 20.8, 57.1, 20.6, 22.9, 39.9],
+    [36.8, 63.5, 62.6, 64.4, 76.4, 56.7, 0,    19.7, 61.2, 59.6, 58.5, 60.1, 57.9, 59.6, 57.9, 6.7,  58.1, 64.7, 74.9],
+    [54.2, 81,   80.1, 81.8, 93.9, 74.2, 19.7, 0,    78.7, 77.1, 76,   77.5, 75.4, 77,   75.3, 24.1, 75.6, 82.2, 92.3],
+    [23.6, 8.3,  14.9, 5.1,  29.3, 18.2, 61.1, 78.6, 0,    4.2,  7.4,  2.8,  6.2,  4,    7.3,  61.4, 7,    5.4,  27.8],
+    [22.2, 8.2,  12.8, 7.3,  27.9, 16.2, 59.6, 77.1, 2.8,  0,    7.3,  0.7,  6.1,  4.2,  7.1,  59.9, 6.9,  7.6,  26.3],
+    [20.4, 4.7,  17.1, 6.5,  21.9, 20.5, 57.9, 75.3, 6.8,  7,    0,    7.5,  1.4,  3.1,  1.2,  58.2, 0.2,  6.4,  20.4],
+    [23.7, 9.5,  13.4, 6.5,  29.4, 16.7, 61.2, 78.7, 2.1,  1.7,  8.4,  0,    7.4,  5.2,  8.2,  61.5, 8,    6.9,  27.9],
+    [20.6, 3.4,  15.8, 5.2,  22,   19.2, 58.1, 75.6, 5.5,  5.7,  1.6,  6.2,  0,    1.8,  1.4,  58.4, 1.2,  5.1,  20.5],
+    [22.6, 4.2,  15,   5.9,  23.8, 18.3, 60,   77.5, 3.8,  4.6,  3.3,  5.1,  2,    0,    3.1,  60.3, 2.9,  4.9,  22.5],
+    [20.1, 4.6,  17,   6.3,  21.1, 20.3, 57.6, 75,   6.6,  6.9,  0.9,  7.9,  1.1,  3,    0,    57.8, 1,    6.7,  19.6],
+    [37,   63.8, 62.9, 64.6, 76.7, 57,   6.7,  24.1, 61.5, 59.9, 58.8, 60.3, 58.2, 59.9, 58.2, 0,    58.4, 65,   75.2],
+    [20.2, 4.5,  16.9, 6.3,  21.7, 20.3, 57.7, 75.1, 6.5,  6.8,  0.9,  7.3,  1.2,  2.9,  1,    58,   0,    6.2,  20.2],
+    [27.2, 3.8,  19.6, 1.1,  27.4, 22.9, 64.6, 82.1, 5.5,  7.6,  6.6,  8.1,  5.9,  4.9,  6.9,  64.9, 6.2,  0,    25.8],
+    [37.4, 28.2, 36.6, 31.3, 6,    39.9, 74.8, 92.3, 25.8, 26.6, 21.8, 27,   22.7, 23,   21.5, 75.1, 21.9, 27,   0   ],
+])
 
-def run_kasir():
-    window = sg.Window('Program Kasir Sederhana', create_layout())
-    
-    daftar_belanja = []
-    total = 0
-
-    while True:
-        event, values = window.read()
-
-        if event == sg.WINDOW_CLOSED:
-            break
-
-        if event == 'Tambah':
-            try:
-                produk = values['-PRODUK-']
-                harga = float(values['-HARGA-'])
-                jumlah = int(values['-JUMLAH-'])
-                subtotal = harga * jumlah
-                
-                item = f"{produk} - {jumlah} x Rp{harga:.2f} = Rp{subtotal:.2f}\n"
-                daftar_belanja.append(item)
-                
-                window['-DAFTAR-'].update(''.join(daftar_belanja))
-                window['-PRODUK-'].update('')
-                window['-HARGA-'].update('')
-                window['-JUMLAH-'].update('')
-            except ValueError:
-                sg.popup_error('Masukkan harga dan jumlah yang valid!')
-
-        if event == 'Hitung Total':
-            total = sum(float(item.split('=')[1].strip()[2:]) for item in daftar_belanja)
-            window['-TOTAL-'].update(f'{total:.2f}')
-
-        if event == 'Bersihkan':
-            daftar_belanja = []
-            total = 0
-            window['-DAFTAR-'].update('')
-            window['-TOTAL-'].update('0')
-
-    window.close()
-
-if __name__ == '__main__':
-    run_kasir()
+print(len(D))
+print("Ukuran matriks:", D.shape)  # (19, 19)
