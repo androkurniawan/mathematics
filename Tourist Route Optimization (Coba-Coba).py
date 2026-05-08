@@ -24,7 +24,7 @@ model = pulp.LpProblem("Tourist_Route", pulp.LpMinimize)
 # Variables
 x = pulp.LpVariable.dicts("x", ((i,j) for i in range(n) for j in range(n) if i!=j), cat='Binary')
 y = pulp.LpVariable.dicts("y", (i for i in range(n)), cat='Binary')
-# u = pulp.LpVariable.dicts("u", (i for i in range(n)), lowBound=1, upBound=n, cat='Integer')
+u = pulp.LpVariable.dicts("u", (i for i in range(n)), lowBound=1, upBound=n, cat='Integer')
 
 # =========================
 # OBJECTIVE
@@ -35,6 +35,7 @@ model += pulp.lpSum(D[i][j] * x[(i,j)] for i in range(n) for j in range(n) if i!
 # =========================
 # FLOW CONSERVATION
 # =========================
+# =========================
 
 for i in range(n):
     model += pulp.lpSum(x[(i,j)] for j in range(n) if i!=j) == y[i]
@@ -44,10 +45,10 @@ for i in range(n):
 # MTZ
 # =========================
 
-# for i in range(n):
-#     for j in range(n):
-#         if i != j:
-#             model += u[i] - u[j] + n*x[(i,j)] <= n-1
+for i in range(n):
+    for j in range(n):
+        if i != j:
+            model += u[i] - u[j] + n*x[(i,j)] <= n-1
 
 # =========================
 # LINKING
@@ -68,33 +69,35 @@ for i in range(n):
 # 2 = Cultural
 # 3,4 = Mall
 
-# beach = [0,1]
-# cultural = [2]
-# mall = [3,4]
+beach = [0,1]
+cultural = [2]
+mall = [3,4]
 
 # Constraint:
-# model += pulp.lpSum(y[i] for i in beach) == 1
-# model += pulp.lpSum(y[i] for i in cultural) == 1
-# model += pulp.lpSum(y[i] for i in mall) == 1
+model += pulp.lpSum(y[i] for i in beach) == 1
+model += pulp.lpSum(y[i] for i in cultural) == 1
+model += pulp.lpSum(y[i] for i in mall) == 1
 
 # =========================
 # SOLVE
 # =========================
 
-model.solve(pulp.PULP_CBC_CMD(msg=1))
+model.solve(pulp.PULP_CBC_CMD(msg=0))
 
 # =========================
 # OUTPUT
 # =========================
 
+print(model)
+
 print("Status:", pulp.LpStatus[model.status])
 print("Total Distance:", pulp.value(model.objective))
 
 selected = [i for i in range(n) if pulp.value(y[i]) == 1]
-# route = sorted(selected, key=lambda i: pulp.value(u[i]))
+route = sorted(selected, key=lambda i: pulp.value(u[i]))
 
 print("\nSelected Nodes:", selected)
-# print("Route Order:", route)
+print("Route Order:", route)
 
 print("\nEdges:")
 for i in range(n):
