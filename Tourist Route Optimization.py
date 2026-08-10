@@ -1,4 +1,5 @@
 import pulp
+from pulp import PULP_CBC_CMD
 import numpy as np
 
 # =========================
@@ -59,14 +60,6 @@ for i in range(n):
     model += pulp.lpSum(x[(i,j)] for j in range(n) if i!=j) == y[i]
     model += pulp.lpSum(x[(j,i)] for j in range(n) if i!=j) == y[i]
 
-# =========================
-# LINKING
-# =========================
-for i in range(n):
-    for j in range(n):
-        if i != j:
-            model += x[(i,j)] <= y[i]
-            model += x[(i,j)] <= y[j]
 
 # =========================
 # MTZ (MILLER-TUCKER-ZEMLIN) CONSTRAINTS
@@ -114,3 +107,6 @@ if pulp.LpStatus[model.status] == 'Optimal':
                 print(f"{i} -> {j}")
 else:
     print("Model tidak feasible.")
+
+solver = PULP_CBC_CMD(msg=True)
+model.solve(solver)

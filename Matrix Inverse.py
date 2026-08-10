@@ -1,7 +1,7 @@
 import numpy as np
-A = np.array([[2, 4, -4],
-              [-4, 3, -3],
-              [2, -2, 2]])
+A = np.array([[1, 2, 3],
+              [2, 5, 3],
+              [1, 0, 8]])
 
 try:
     np.linalg.inv(A)
